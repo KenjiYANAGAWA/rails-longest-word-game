@@ -1,5 +1,6 @@
 <h1>Result</h1>
 <p>Find me in app/views/games/score.html.erb</p>
 <p><%= @letters %></p>
-<p><%= @result %></p>
+<p><%= @result[0] %></p>
+<p><%= "Your Score: #{@score}" if @score %></p>
 <p><%= link_to "Play Again", new_path %></p>

@@ -1,9 +1,9 @@
 <h1 style = "margin_top: 20px">Quiz</h1>
 <p><%= @letters %></p>
 <form action="/score", method="post">
-<%= hidden_field_tag :authenticity_token, form_authenticity_token%>
-<%= hidden_field_tag :letters, @letters%>
-<label for="answer">your answer here</label>
-<input type="text" name="answer">
-<input type="submit" value="play">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token%>
+  <%= hidden_field_tag :letters, @letters%>
+  <label for="answer">your answer here</label>
+  <input type="text" name="answer">
+  <input type="submit" value="play">
 </form>

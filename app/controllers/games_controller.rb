@@ -9,25 +9,35 @@ class GamesController < ApplicationController
 
   def score
     @result = full_answer_validation(params[:answer], params[:letters])
+    @score = params[:answer].length if @result[1]
   end
 
   private
 
   def full_answer_validation(answer, letters)
-    if valid_grid?(answer, letters) && valid_english?(answer)
-      "Congratulations!!! #{answer.upcase} is a valid English word..."
-    elsif valid_grid?(answer, letters)
-      "Sorry #{answer.upcase} does not seem to be a valid English word..."
-    elsif valid_english?(answer)
-      "The word can't be built out of the grid"
+    grid = valid_grid?(answer, letters)
+    english = valid_english?(answer)
+
+    if grid && english
+      ["Congratulations!!! #{answer.upcase} is a valid English word...", true]
+    elsif grid
+      ["Sorry #{answer.upcase} does not seem to be a valid English word...", false]
+    elsif english
+      ["The word can't be built out of the grid", false]
     else
-      'WRONG'
+      ['WRONG', false]
     end
   end
 
   def valid_grid?(answer, letters)
     answer = answer.split('')
-    answer.each { |char| return false unless letters.include? char }
+    letters.split(' ')
+    answer.each do |char|
+      return false unless letters.include? char
+
+      letters.slice!(letters.index(char))
+    end
+    true
   end
 
   def valid_english?(answer)
